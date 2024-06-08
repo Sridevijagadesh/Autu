@@ -1,0 +1,20 @@
+.home{
+  display: flex;
+  color: black;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 90vh;
+  padding-inline: 30px;
+ 
+  background-image: url('https://graphicsfamily.com/wp-content/uploads/edd/2021/06/Doctor-Help-Center-Logo-Design-scaled.jpg');
+}
+.home-title{
+
+font-weight: bolder;
+font-size: 54px;  
+}
+.home p{
+  font-size: 24px;
+  
+}
