@@ -3,7 +3,7 @@ import '../asset/form.css'
 import { Link } from 'react-router-dom'
 import Validation from './Validation'
 import Axios from 'axios'
-import toast from 'react-toastify'
+import {toast} from 'react-toastify'
 
 const Register = () => {
 const [values , setvalues] = useState({
