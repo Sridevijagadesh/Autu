@@ -6,11 +6,17 @@ import Home from './component/home';
 import Register from './component/Register';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { createContext, useState } from 'react';
+
+export const UserContext = createContext(null)
 
 function App() {
+  const [user , setuser] = useState()
   return (
     <div className="App">
-  
+  <UserContext.Provider value={{user , setuser}}>
+
+
  <BrowserRouter>
  <Navbar/>
  <ToastContainer/>
@@ -20,6 +26,7 @@ function App() {
   <Route path='/register'  element={<Register/>}></Route>
  </Routes>
  </BrowserRouter>
+ </UserContext.Provider>
     </div>
   );
 }

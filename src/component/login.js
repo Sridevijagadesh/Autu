@@ -1,10 +1,10 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import '../asset/form.css'
 import { Link  ,useNavigate} from 'react-router-dom'
 import Validation from './Validation'
 import Axios from 'axios'
 import {toast} from 'react-toastify'
-
+import { UserContext } from '../App'
 
 const Login = () => {
 const [values , setvalues] = useState({
@@ -12,6 +12,7 @@ const [values , setvalues] = useState({
   email:"",
   password:""
 })
+const [user , setuser]= useContext(UserContext)
 const navigator = useNavigate()
 const[errors , setError] = useState({})
 const[   serverErrors,    setServerErrors] = useState([])
@@ -24,13 +25,14 @@ const hadlesubmit = (e)=>{
   const errs = Validation(values)
   setError(errs)
   if( errs.email==="" && errs.password ===""){
-    Axios.post('http://localhost:8081/auth/register', values).then(res=>{
+    Axios.post('http://localhost:8081/auth/login', values).then(res=>{
       if(res.data.success){
-      toast.success('Account created Successfully',{
+      toast.success('Login Successfully',{
         position:"top-right",
         autoClose:5000
       })
-      navigator('/login')
+      setuser(res.data.user)
+      navigator('/home')
     }
     }).catch(err=>{
      if(err.response.data.errors){
