@@ -5,6 +5,7 @@ const Validation = (val) => {
   let errors = {}
   const email_pattern = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
   // const password_pattern = /^(?=.\d)(?=.[a-z])(?=.*[A-Z]).{8,}$/;
+  if(val?.name){
   if(val.name ===''){
     errors.name = 'Name should not be empty'
   }else if(val.name.length <3 || val.name.length >30){
@@ -12,6 +13,7 @@ const Validation = (val) => {
   }else{
     errors.name = ''
   }
+}
   if(val.email ===''){
     errors.email = 'email should not be empty'
   }else if(!email_pattern.test(val.email)){

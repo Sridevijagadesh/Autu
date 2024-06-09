@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import '../asset/form.css'
-import { Link } from 'react-router-dom'
+import { Link  ,useNavigate} from 'react-router-dom'
 import Validation from './Validation'
 import Axios from 'axios'
 import {toast} from 'react-toastify'
+
 
 const Register = () => {
 const [values , setvalues] = useState({
@@ -11,7 +12,9 @@ const [values , setvalues] = useState({
   email:"",
   password:""
 })
+const navigator = useNavigate()
 const[errors , setError] = useState({})
+const[   serverErrors,    setServerErrors] = useState([])
 const handlEvent = (event)=>{
    setvalues({...values , [event.target.name]: event.target.value})
 
@@ -20,14 +23,19 @@ const hadlesubmit = (e)=>{
   e.preventDefault()
   const errs = Validation(values)
   setError(errs)
-  if(errors.name === ''&& errors.email==="" && errors.password ===""){
-    Axios.post('', values).then(res=>{
+  if(errs.name === ''&& errs.email==="" && errs.password ===""){
+    Axios.post('http://localhost:8081/auth/register', values).then(res=>{
+      if(res.data.success){
       toast.success('Account created Successfully',{
         position:"top-right",
         autoClose:5000
       })
+      navigator('/login')
+    }
     }).catch(err=>{
-      console.log(err)
+     if(err.response.data.errors){
+      setServerErrors(err.response.data.errors)
+     }
     })
   }
 }
@@ -52,6 +60,13 @@ const hadlesubmit = (e)=>{
           {errors.password && <span className='error' >{errors.password}</span>}
         </div>
         <button className='btn-form'>Register</button>
+        {
+                serverErrors.length> 0 && (
+        serverErrors.map((val , index)=> (
+          <p key={index}>{val.msg}</p>
+        ))
+                )
+      }
         <p>Already i have a account<Link to ='/login' className='link'>login</Link></p>
       </form>
 
