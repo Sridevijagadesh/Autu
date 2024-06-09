@@ -12,7 +12,7 @@ const [values , setvalues] = useState({
   email:"",
   password:""
 })
-const [user , setuser]= useContext(UserContext)
+const {user , setuser}= useContext(UserContext)
 const navigator = useNavigate()
 const[errors , setError] = useState({})
 const[   serverErrors,    setServerErrors] = useState([])
@@ -31,6 +31,7 @@ const hadlesubmit = (e)=>{
         position:"top-right",
         autoClose:5000
       })
+      console.log(res)
       setuser(res.data.user)
       navigator('/home')
     }
